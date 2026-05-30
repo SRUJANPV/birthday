@@ -1991,16 +1991,16 @@
             z-index: 10;
         }
 
-        /* INTERACTIVE CAKE FEATURES */
         .cake-wrapper {
             position: relative;
             display: inline-block;
             margin: 30px auto;
+            cursor: pointer;
         }
 
         /* BIRTHDAY CAKE DISPLAY */
         .birthday-cake {
-            display: block;
+            display: none;
             text-align: center;
             animation: cakePop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
             cursor: pointer;
@@ -2175,6 +2175,7 @@
             font-size: 2rem;
             height: 30px;
             min-height: 30px;
+            cursor: pointer;
         }
 
         .candle {
@@ -2193,13 +2194,14 @@
         }
 
         .cake-hint {
-            display: none;
+            display: block;
             font-size: 0.9rem;
             color: #a855a8;
             text-align: center;
             margin: 10px 0;
             opacity: 0.8;
             font-style: italic;
+            cursor: pointer;
         }
 
         /* PARTICLES EFFECT */
@@ -3530,13 +3532,20 @@
             });
         }
 
-        // Add candles on birthday cake click
-        const birthdayCake = document.getElementById('birthdayCake');
-        if (birthdayCake) {
-            birthdayCake.addEventListener('click', (event) => {
-                // Only trigger if not clicking on buttons
-                if (!event.target.closest('button')) {
+        // Add candles on cake wrapper click (for adding candles)
+        const cakeWrapper = document.querySelector('.cake-wrapper');
+        const candlesDisplay = document.getElementById('candlesDisplay');
+        const cakeHint = document.getElementById('cakeHint');
+        
+        if (cakeWrapper) {
+            cakeWrapper.addEventListener('click', (event) => {
+                // If candles haven't been blown out yet, add them
+                if (candleCount < maxCandles) {
                     addCandle();
+                }
+                // If candles are at max and we click again, blow them out
+                else if (candleCount >= maxCandles && candlesDisplay.innerHTML !== '') {
+                    blowOutCandles();
                 }
             });
         }
