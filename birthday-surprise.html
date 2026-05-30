@@ -3529,6 +3529,17 @@
                 triggerConfetti();
             });
         }
+
+        // Add candles on birthday cake click
+        const birthdayCake = document.getElementById('birthdayCake');
+        if (birthdayCake) {
+            birthdayCake.addEventListener('click', (event) => {
+                // Only trigger if not clicking on buttons
+                if (!event.target.closest('button')) {
+                    addCandle();
+                }
+            });
+        }
     });
 
     // ===== PAGE 5: ENVELOPE INTERACTION =====
